@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- insert first name last name -->
+	<title>My Api Project</title>
+	<script type="text/javascript">
+	function getMovies(){
+  	 var table = "<tr><td style='font:bold'>Title</td><td>Year</td></tr>";
+    if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+          xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              var resp = JSON.parse(this.responseText);
+              var json = resp.movies;
+              console.log(json);
+              for(var i = 0; i < 5; i++) {
+				    var obj = json[i];
+				    table = table+"<tr><td>"+obj.title+"</td><td>"+obj.year+"</td></tr>" 
+				    console.log(obj.id);
+				}
+                document.getElementById('list').innerHTML = table;
+              
+            }
+        };
+       
+        xmlhttp.open("GET","http://facultyweb.centennialcollege.ca/pgignac/comp125/chapter11/movie.php",true);
+        xmlhttp.send();
+}
+</script>
+</head>
+<body>
+	<H1>Top 5 Movies</H1>
+ <div>
+ 	<table id='list' border="1">
+ 		
+ 	</table>
+ </div>
+ <script>getMovies();</script>
+</body>
+
+</html>
